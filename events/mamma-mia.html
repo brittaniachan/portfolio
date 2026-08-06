@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mamma Mia! — Brittania Chan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-name">Brittania Chan</a>
+    <nav aria-label="Section navigation">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../featured-projects.html" class="active">Featured Projects</a></li>
+        <li><a href="../impact.html">Impact</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../experience.html">Experience</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="event-mamma-mia">
+    <a class="event-back" href="../featured-projects.html">&larr; Back to featured projects</a>
+    <span class="event-meta">Activations &amp; Events</span>
+    <h1 class="event-hero-title">Mamma Mia!</h1>
+    <div class="hero-role" style="margin-bottom:18px;">A Cinematic Lunch Experience</div>
+    <p class="event-desc">I created a themed lunchtime experience inspired by Mamma Mia! (2008), transforming a standard lunch into an immersive Mediterranean escape. I partnered with long-time catering vendor SF Food Mart to curate mezze boards, charcuterie, fresh fruit, and themed refreshments, while designing custom menu cards, film synopsis signage, and cohesive event graphics inspired by the Greek islands. These low-lift activations provided employees with an opportunity to pause, share a meal, and connect over a familiar film, reinforcing workplace community through thoughtful experiential programming.</p>
+    <div class="event-photo-grid">
+      <div class="event-photo" tabindex="0" data-full="../images/mammamia-2.jpg" data-caption="Full Mamma Mia spread with menu and synopsis cards">
+        <img src="../images/mammamia-2.jpg" alt="Full Mamma Mia spread with menu and synopsis cards" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/mammamia-1.jpg" data-caption="Mediterranean platter with pita, hummus, feta, and falafel">
+        <img src="../images/mammamia-1.jpg" alt="Mediterranean platter with pita, hummus, feta, and falafel" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/mammamia-3.jpg" data-caption="Fruit and cheese platter with grapes, strawberries, and figs">
+        <img src="../images/mammamia-3.jpg" alt="Fruit and cheese platter with grapes, strawberries, and figs" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/mammamia-4.jpg" data-caption="Santorini Sunrise mocktail pitchers">
+        <img src="../images/mammamia-4.jpg" alt="Santorini Sunrise mocktail pitchers" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/mammamia-5.jpg" data-caption="Table spread with florals and drink station">
+        <img src="../images/mammamia-5.jpg" alt="Table spread with florals and drink station" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/mammamia-menu.jpg" data-caption="Mamma Mia menu card">
+        <img src="../images/mammamia-menu.jpg" alt="Mamma Mia menu card" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/mammamia-synopsis.jpg" data-caption="Mamma Mia (2008) synopsis card">
+        <img src="../images/mammamia-synopsis.jpg" alt="Mamma Mia (2008) synopsis card" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+    <div class="lightbox-caption">
+      <span class="lightbox-title" id="lightboxTitle"></span>
+      <span class="lightbox-counter" id="lightboxCounter"></span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2026 Brittania Chan. Built with care.
+</footer>
+
+<script>
+  (function(){
+    const photos = Array.from(document.querySelectorAll('.event-photo[data-full]'));
+    if (!photos.length) return;
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    const title = document.getElementById('lightboxTitle');
+    const counter = document.getElementById('lightboxCounter');
+    let index = 0;
+
+    function show(i){
+      index = (i + photos.length) % photos.length;
+      const p = photos[index];
+      img.src = p.getAttribute('data-full');
+      img.alt = p.getAttribute('data-caption') || '';
+      title.textContent = p.getAttribute('data-caption') || '';
+      counter.textContent = (index + 1) + ' / ' + photos.length;
+      lightbox.classList.add('active');
+    }
+
+    photos.forEach((p, i) => {
+      p.addEventListener('click', () => show(i));
+      p.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(i); }
+      });
+    });
+
+    document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('active'));
+    document.getElementById('lightboxPrev').addEventListener('click', () => show(index - 1));
+    document.getElementById('lightboxNext').addEventListener('click', () => show(index + 1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+  })();
+</script>
+
+</body>
+</html>

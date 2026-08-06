@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>May the 4th — Brittania Chan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-name">Brittania Chan</a>
+    <nav aria-label="Section navigation">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../featured-projects.html" class="active">Featured Projects</a></li>
+        <li><a href="../impact.html">Impact</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../experience.html">Experience</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="event-may-the-4th">
+    <a class="event-back" href="../featured-projects.html">&larr; Back to featured projects</a>
+    <span class="event-meta">Activations &amp; Events</span>
+    <h1 class="event-hero-title">May the 4th</h1>
+    <div class="hero-role" style="margin-bottom:18px;">Star Wars Day Activation</div>
+    <p class="event-desc">To celebrate Star Wars Day, I partnered with Teaspoon to create a custom-themed boba experience that served as an afternoon employee pick-me-up. I collaborated with the vendor to develop an exclusive drink menu—including Tatooine Thai Tea, Scarif Sunset Refresher, and Skywalker Strawberry—and designed themed signage and office branding to bring the activation to life. Paired with a screening of a Star Wars film, the event transformed a simple beverage break into an engaging, shared experience that encouraged employees to gather, recharge, and connect.</p>
+    <div class="event-photo-grid">
+      <div class="event-photo" tabindex="0" data-full="../images/maythe4th-3.jpg" data-caption="Drink table spread with menu card">
+        <img src="../images/maythe4th-3.jpg" alt="Drink table spread with menu card" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/maythe4th-1.jpg" data-caption="Tatooine Thai Tea and Scarif Sunset Refresher lineup">
+        <img src="../images/maythe4th-1.jpg" alt="Tatooine Thai Tea and Scarif Sunset Refresher lineup" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/maythe4th-2.jpg" data-caption="Skywalker Strawberry matcha lineup">
+        <img src="../images/maythe4th-2.jpg" alt="Skywalker Strawberry matcha lineup" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/maythe4th-menu.jpg" data-caption="May the 4th Be With You drink menu">
+        <img src="../images/maythe4th-menu.jpg" alt="May the 4th Be With You drink menu" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/maythe4th-sticker1.jpg" data-caption="May the Fourth Be With You graphic">
+        <img src="../images/maythe4th-sticker1.jpg" alt="May the Fourth Be With You graphic" loading="lazy">
+      </div>
+      <div class="event-photo" tabindex="0" data-full="../images/maythe4th-sticker2.jpg" data-caption="May the 4th Be With You Death Star graphic">
+        <img src="../images/maythe4th-sticker2.jpg" alt="May the 4th Be With You Death Star graphic" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+    <div class="lightbox-caption">
+      <span class="lightbox-title" id="lightboxTitle"></span>
+      <span class="lightbox-counter" id="lightboxCounter"></span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2026 Brittania Chan. Built with care.
+</footer>
+
+<script>
+  (function(){
+    const photos = Array.from(document.querySelectorAll('.event-photo[data-full]'));
+    if (!photos.length) return;
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    const title = document.getElementById('lightboxTitle');
+    const counter = document.getElementById('lightboxCounter');
+    let index = 0;
+
+    function show(i){
+      index = (i + photos.length) % photos.length;
+      const p = photos[index];
+      img.src = p.getAttribute('data-full');
+      img.alt = p.getAttribute('data-caption') || '';
+      title.textContent = p.getAttribute('data-caption') || '';
+      counter.textContent = (index + 1) + ' / ' + photos.length;
+      lightbox.classList.add('active');
+    }
+
+    photos.forEach((p, i) => {
+      p.addEventListener('click', () => show(i));
+      p.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(i); }
+      });
+    });
+
+    document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('active'));
+    document.getElementById('lightboxPrev').addEventListener('click', () => show(index - 1));
+    document.getElementById('lightboxNext').addEventListener('click', () => show(index + 1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+  })();
+</script>
+
+</body>
+</html>
