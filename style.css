@@ -444,21 +444,20 @@
     inset:0;
     z-index:200;
     background:rgba(58,51,43,0.94);
+    flex-direction:column;
     align-items:center;
     justify-content:center;
   }
   .lightbox.active{ display:flex; }
   .lightbox-img{
     max-width:88vw;
-    max-height:78vh;
+    max-height:70vh;
     object-fit:contain;
     border-radius:6px;
     box-shadow:0 12px 40px rgba(0,0,0,0.35);
   }
   .lightbox-caption{
-    position:absolute;
-    left:0; right:0;
-    bottom:32px;
+    margin-top:1.5em;
     text-align:center;
     color:var(--paper);
     font-family:var(--mono);
